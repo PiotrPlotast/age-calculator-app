@@ -13,12 +13,12 @@ export default {
       },
       colors: {
         purple: "hsl(259,100%,65%)",
-        "light-red": "hsl(0, 100%, 67%)",
+        lightRed: "hsl(0, 100%, 67%)",
         White: "hsl(0, 0%, 100%)",
-        "Off white": "hsl(0, 0%, 94%)",
-        "Light grey": "hsl(0, 0%, 86%)",
-        "Smokey grey": "hsl(0, 1%, 44%)",
-        "Off black": "hsl(0, 0%, 8%)",
+        OffWhite: "hsl(0, 0%, 94%)",
+        LightGrey: "hsl(0, 0%, 86%)",
+        SmokeyGrey: "hsl(0, 1%, 44%)",
+        OffBlack: "hsl(0, 0%, 8%)",
       },
       fontSize: {
         input: "2rem",
