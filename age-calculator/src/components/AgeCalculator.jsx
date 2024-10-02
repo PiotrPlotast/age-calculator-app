@@ -8,6 +8,9 @@ export default function AgeCalculator() {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [isCalculated, setIsCalculated] = useState(false);
+  const [isInvalidYear, setIsInvalidYear] = useState(false);
+  const [isInvalidMonth, setIsInvalidMonth] = useState(false);
+  const [isInvalidDay, setIsInvalidDay] = useState(false);
   function handleform(e) {
     e.preventDefault();
 
@@ -21,11 +24,22 @@ export default function AgeCalculator() {
         date <= today
       );
     };
-
+    setIsInvalidYear(false);
+    setIsInvalidMonth(false);
+    setIsInvalidDay(false);
     if (!isValidDate(birthDay, birthMonth, birthYear)) {
-      alert("Please enter a valid date.");
+      if (birthDay > 31 || birthDay < 1) {
+        setIsInvalidDay(true);
+      }
+      if (birthMonth > 12 || birthMonth < 1) {
+        setIsInvalidMonth(true);
+      }
+      if (birthYear > new Date().getFullYear() || birthYear < 1900) {
+        setIsInvalidYear(true);
+      }
       return;
     }
+
     const birthDate = new Date(birthYear, birthMonth - 1, birthDay);
     const today = new Date();
 
@@ -49,7 +63,7 @@ export default function AgeCalculator() {
     setIsCalculated(true);
   }
   return (
-    <div className="bg-White mx-4 pt-12 pb-16 px-4 rounded-t-3xl rounded-bl-3xl rounded-br-[5rem] sm:rounded-br-[10rem] max-w-3xl sm:px-12">
+    <div className="bg-White mx-4 pt-12 pb-16 px-4 rounded-t-3xl rounded-bl-3xl rounded-br-[5rem] sm:rounded-br-[10rem] sm:px-12 md:w-4/5 md:max-w-3xl">
       <form
         onSubmit={handleform}
         className="flex flex-col items-center gap-12 sm:items-start sm:gap-8"
@@ -58,7 +72,9 @@ export default function AgeCalculator() {
           <div className="flex flex-col">
             <label
               htmlFor="day"
-              className="uppercase font-poppinsBold text-xs text-SmokeyGrey tracking-[0.2rem] -translate-y-1 -translate-x-1"
+              className={`uppercase font-poppinsBold text-xs text-SmokeyGrey tracking-[0.2rem] -translate-y-1 -translate-x-1 ${
+                isInvalidDay ? "text-lightRed" : ""
+              }`}
             >
               day
             </label>
@@ -68,13 +84,22 @@ export default function AgeCalculator() {
               name="day"
               value={birthDay}
               onChange={(e) => setBirthDay(e.target.value)}
-              className="max-w-24 h-14 border rounded-md pl-4 text-2xl font-poppinsBold sm:max-w-36 sm:h-16"
+              className={`max-w-24 h-14 border rounded-md pl-4 text-2xl font-poppinsBold sm:max-w-36 sm:h-16 ${
+                isInvalidDay ? "border-lightRed" : ""
+              }`}
             />
+            {isInvalidDay && (
+              <span className="text-lightRed text-sm mt-1">
+                Must be a valid day
+              </span>
+            )}
           </div>
           <div className="flex flex-col">
             <label
               htmlFor="month"
-              className="uppercase font-poppinsBold text-xs text-SmokeyGrey tracking-[0.2rem] -translate-y-1 -translate-x-1"
+              className={`uppercase font-poppinsBold text-xs text-SmokeyGrey tracking-[0.2rem] -translate-y-1 -translate-x-1 ${
+                isInvalidMonth ? "text-lightRed" : ""
+              }`}
             >
               month
             </label>
@@ -84,13 +109,22 @@ export default function AgeCalculator() {
               name="month"
               value={birthMonth}
               onChange={(e) => setBirthMonth(e.target.value)}
-              className="max-w-24 h-14 border rounded-md pl-4 text-2xl font-poppinsBold sm:max-w-36 sm:h-16"
+              className={`max-w-24 h-14 border rounded-md pl-4 text-2xl font-poppinsBold sm:max-w-36 sm:h-16 ${
+                isInvalidMonth ? "border-lightRed" : ""
+              }`}
             />
+            {isInvalidMonth && (
+              <span className="text-lightRed text-sm mt-1">
+                Must be a valid month
+              </span>
+            )}
           </div>
           <div className="flex flex-col">
             <label
               htmlFor="year"
-              className="uppercase font-poppinsBold text-xs text-SmokeyGrey tracking-[0.2rem] -translate-y-1 -translate-x-1"
+              className={`uppercase font-poppinsBold text-xs text-SmokeyGrey tracking-[0.2rem] -translate-y-1 -translate-x-1 ${
+                isInvalidYear ? "text-lightRed" : ""
+              }`}
             >
               year
             </label>
@@ -100,8 +134,15 @@ export default function AgeCalculator() {
               name="year"
               value={birthYear}
               onChange={(e) => setBirthYear(e.target.value)}
-              className="max-w-24 h-14 border rounded-md pl-4 text-2xl font-poppinsBold sm:max-w-36 sm:h-16"
+              className={`max-w-24 h-14 border rounded-md pl-4 text-2xl font-poppinsBold sm:max-w-36 sm:h-16 ${
+                isInvalidYear ? "border-lightRed" : ""
+              }`}
             />
+            {isInvalidYear && (
+              <span className="text-lightRed text-sm mt-1">
+                Must be a valid year
+              </span>
+            )}
           </div>
         </div>
         <button className="bg-purple rounded-full p-4 z-10 sm:self-end  sm:p-6">
