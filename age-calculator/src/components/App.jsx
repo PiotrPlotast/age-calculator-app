@@ -1,12 +1,10 @@
 import "../App.css";
+import AgeCalculator from "./AgeCalculator";
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline font-poppinsItalic">
-        Age Calculator
-      </h1>
-      <h2>test</h2>
-    </>
+    <div className="bg-OffWhite h-[100dvh] pt-24">
+      <AgeCalculator />
+    </div>
   );
 }
 
